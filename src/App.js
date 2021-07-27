@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React , { useState }from 'react';
+import firebase from './utility/firebase.js';
 import './App.css';
 
 function App() {
+  
+  const [text, setText] = useState("");
+
+
+  const getInputData = (e) => {
+    setText(e.target.value);
+    console.log(text);
+  }
+
+
+  const createChat = () => {
+    const chatRef = firebase.database().ref("Chat");
+    const message = {
+      text,
+      send: true
+    };
+    chatRef.push(message);
+  } 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type = "text" onChange = {getInputData}/>
+      <button onClick ={createChat}>Add to database</button>
     </div>
   );
 }
