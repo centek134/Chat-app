@@ -1,31 +1,28 @@
-import React , { useState }from 'react';
-import firebase from './utility/firebase.js';
+import React from 'react';
+import styled from 'styled-components';
 import './App.css';
+import Sidebar from './components/Sidebar.js';
+import Chat from './components/Chat.js';
+//import firebaseApp from './utility/firebase.js';
+
+
+  const Myapp = styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  `;
 
 function App() {
-  
-  const [text, setText] = useState("");
 
-
-  const getInputData = (e) => {
-    setText(e.target.value);
-    console.log(text);
-  }
-
-
-  const createChat = () => {
-    const chatRef = firebase.database().ref("Chat");
-    const message = {
-      text,
-      send: true
-    };
-    chatRef.push(message);
-  } 
   return (
-    <div className="App">
-      <input type = "text" onChange = {getInputData}/>
-      <button onClick ={createChat}>Add to database</button>
-    </div>
+    <Myapp>
+      <Sidebar>
+
+      </Sidebar>
+      <Chat>
+        
+      </Chat>
+    </Myapp>
   );
 }
 
