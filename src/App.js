@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import './App.css';
 import Sidebar from './components/Sidebar.js';
 import Chat from './components/Chat.js';
+import {Switch, Route} from 'react-router-dom';
 //import firebaseApp from './utility/firebase.js';
 
 
@@ -16,12 +16,13 @@ function App() {
 
   return (
     <Myapp>
-      <Sidebar>
-
-      </Sidebar>
-      <Chat>
+      <Sidebar/>
+      <Switch>
+        <Route path="/room/:roomId">
+      <Chat/>
+        </Route>
         
-      </Chat>
+      </Switch>
     </Myapp>
   );
 }
