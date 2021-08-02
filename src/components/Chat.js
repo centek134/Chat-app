@@ -1,6 +1,7 @@
-import React , { useState }from "react";
+import React , { useEffect, useState }from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
+import { db } from "../utility/firebase";
 
 const ChatCont = styled.div`
   display: flex;
@@ -39,19 +40,47 @@ const InputBody = styled.div`
     padding: 0 10px;
     font-size: 20px;
     border-radius: 15px;
-    border: 2px solid grey;
+    border: none;
     outline: none;
     resize: none
   }
-  & input[type=text] {
-        word-wrap: break-word;
-        word-break: break-all;
-        height: 80px;
+  & > button {
+    padding: 10px 20px;
+    background-color: #6383ff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    &:hover{
+      background-color: #5779ff;
     }
+  }
 `;
 const Chat = () => {
   const { roomId } = useParams();
-    const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const [roomName, setRoomName] = useState("");
+
+  useEffect( () => {
+    db.collection("rooms").doc(roomId).get().then((doc) => {
+      if(doc.exists){
+        console.log("Doc data", doc.data());
+        setRoomName(doc.data().name)
+      }
+      else{
+        return console.log("there is no document");
+      }
+      })
+      .catch( err => console.log(err));
+
+  },[roomId]);
+
+
+
+  
 
     const saveMessage = (e) => {
         setMessage(e.target.value);
@@ -61,8 +90,7 @@ const Chat = () => {
   return (
     <ChatCont>
       <ChatHeader>
-        <h3>#Actual chat name</h3>
-        <p>this is a {roomId} room</p>
+        <h3>#{roomName}</h3>
       </ChatHeader>
       <ChatBody>
         <p>displaying messages</p>
