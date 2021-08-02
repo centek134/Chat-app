@@ -1,5 +1,7 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { db } from '../utility/firebase';
 
 const Item = styled.button`
     width: 100%;
@@ -19,11 +21,34 @@ const Item = styled.button`
     }
 `;
 
-const RoomItem = ({title}) => {
+const RoomItem = ({title, id, addRoomOption }) => {
+    const history = useHistory();
+
+    const selectRoom = () => {
+        if(id){
+            history.push(`/room/${id}`);
+        }
+        else{
+            history.push("title");
+        };
+    };
+
+    const addRoom = () => {
+        const roomName = prompt("Please enter channel name:");
+        if(roomName){
+            db.collection("rooms").add({
+                name:roomName
+            });
+        }
+        else{
+            alert("Fill the input with data!")
+            return;
+        }
+    }
 
 
     return (
-        <Item>
+        <Item onClick = {addRoomOption? addRoom : selectRoom}>
             <p># {title}</p>
         </Item>
     );
