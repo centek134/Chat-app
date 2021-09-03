@@ -2,6 +2,7 @@ import React , { useEffect, useState }from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
 import { db } from "../utility/firebase";
+import Message from "./Message";
 
 const ChatCont = styled.div`
   display: flex;
@@ -61,7 +62,7 @@ const InputBody = styled.div`
 `;
 const Chat = () => {
   const { roomId } = useParams();
-  const [message, setMessage] = useState("");
+  const [roomMessages, setRoomMessages] = useState([]);
   const [roomName, setRoomName] = useState("");
 
   useEffect( () => {
@@ -76,15 +77,20 @@ const Chat = () => {
       })
       .catch( err => console.log(err));
 
+      db.collection("rooms").doc(roomId)
+      .collection("messages")
+      .orderBy("timestamp", "asc")
+      .onSnapshot( (snapshot) => 
+        setRoomMessages(snapshot.docs.map(doc => doc.data())));
   },[roomId]);
 
 
 
-  
+    console.log("MESSAGES >>>>",roomMessages);
 
     const saveMessage = (e) => {
-        setMessage(e.target.value);
-        console.log(message);
+        setRoomMessages(e.target.value);
+        console.log(roomMessages);
     };
 
   return (
@@ -93,7 +99,14 @@ const Chat = () => {
         <h3>#{roomName}</h3>
       </ChatHeader>
       <ChatBody>
-        <p>displaying messages</p>
+        {roomMessages.map(({message, timestamp, user, userImage}) => (
+          <Message
+          message = {message}
+          timestamp = {timestamp}
+          user = {user}
+          userImage = {userImage}
+          />
+        ))}
       </ChatBody>
       <InputBody>
       <textarea onChange = {saveMessage}/>
