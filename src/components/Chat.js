@@ -99,11 +99,11 @@ const Chat = () => {
         <h3>#{roomName}</h3>
       </ChatHeader>
       <ChatBody>
-        {roomMessages.map(({message, timestamp, user, userImage}) => (
+        {roomMessages.map(({message, timestamp, userName, userImage}) => (
           <Message
           message = {message}
           timestamp = {timestamp}
-          user = {user}
+          userName = {userName}
           userImage = {userImage}
           />
         ))}
