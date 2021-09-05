@@ -88,14 +88,29 @@ const Chat = () => {
 
     const saveMessage = (e) => {
         setMyMessage(e.target.value);
-        console.log(myMessage);
     };
 
+    const checkPressedKey = (event) => {
+      if(event.key === "Enter" && event.shiftKey){
+        console.log("Shift + enter")
+      }
+      else if(event.key === "Enter"){
+        console.log("you pressed enter");
+        sendMessage();
+      }else{
+        return;
+      }
+    }
+
     const sendMessage = () => {
+      const today = new Date();
+      const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date+' '+time;
 
       db.collection("rooms").doc(roomId).collection("messages").add({
         message: myMessage,
-        timestamp: firebase.firestore.Timestamp.fromDate(new Date("December 25, 2003")),
+        timestamp: firebase.firestore.Timestamp.fromDate(new Date(dateTime)),
         userImage:"none",
         userName:"Tomasz"
       });
@@ -119,7 +134,7 @@ const Chat = () => {
         ))}
       </ChatBody>
       <InputBody>
-      <textarea onChange = {saveMessage}/>
+      <textarea onKeyPress = {checkPressedKey} onChange = {saveMessage}/>
         <button onClick = {sendMessage}>Send</button>
       </InputBody>
     </ChatCont>
