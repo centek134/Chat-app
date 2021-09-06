@@ -92,7 +92,7 @@ const Chat = () => {
 
     const checkPressedKey = (event) => {
       if(event.key === "Enter" && event.shiftKey){
-        console.log("Shift + enter")
+        console.log("Shift + enter");
       }
       else if(event.key === "Enter"){
         console.log("you pressed enter");
