@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { StateProvider } from "./utility/StateProvider";
+import reducer, { initialState } from "./utility/reducer";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <StateProvider initialState = {initialState} reducer = {reducer}>
+        <App />
+      </StateProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
