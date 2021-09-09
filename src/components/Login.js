@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import { auth, provider } from '../utility/firebase';
+import { actionTypes } from '../utility/reducer';
+import { useStateValue } from '../utility/StateProvider';
 
 
 const LoginWindow = styled.div`
@@ -49,11 +51,18 @@ const LoginWindow = styled.div`
 
 const Login = (props) => {
 
+    const [state, dispatch] = useStateValue()
+
 
     const signIn = () => {
         auth.signInWithPopup(provider)
         .then((result) => {
             console.log("USER INFO >>>>", result);
+            dispatch({
+                type: actionTypes.SET_USER,
+                user: result.user
+            })
+
         }).catch((error) => {
             console.log(error);
         })

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar.js";
 import Chat from "./components/Chat.js";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
+import { useStateValue } from "./utility/StateProvider.js";
 
-//import firebaseApp from './utility/firebase.js';
 
 const Myapp = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ const Myapp = styled.div`
 `;
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [{user}, dispatch] = useStateValue();
 
   return (
     <Myapp>
