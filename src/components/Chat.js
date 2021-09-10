@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { db } from "../utility/firebase";
 import Message from "./Message";
 import firebase from 'firebase';
+import { useStateValue } from "../utility/StateProvider";
 
 const ChatCont = styled.div`
   display: flex;
@@ -27,6 +28,8 @@ const ChatBody = styled.div`
   flex: 0.85;
   width: 100%;
   padding: 0 25px;
+  overflow-y: auto;
+  
 `;
 
 const InputBody = styled.div`
@@ -66,6 +69,7 @@ const Chat = () => {
   const [roomMessages, setRoomMessages] = useState([]);
   const [myMessage, setMyMessage] = useState("");
   const [roomName, setRoomName] = useState("");
+  const [{user}] = useStateValue();
 
   useEffect( () => {
     db.collection("rooms").doc(roomId).get().then((doc) => {
@@ -111,8 +115,8 @@ const Chat = () => {
       db.collection("rooms").doc(roomId).collection("messages").add({
         message: myMessage,
         timestamp: firebase.firestore.Timestamp.fromDate(new Date(dateTime)),
-        userImage:"none",
-        userName:"Tomasz"
+        userImage:user.photoURL,
+        userName:user.displayName
       });
     };
 
