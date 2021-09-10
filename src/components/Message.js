@@ -4,6 +4,7 @@ import styled from "styled-components";
 const ChatMessage = styled.div`
   display: flex;
   align-items: center;
+  margin: 5px 0;
 
   & > img {
     height: 50px;
