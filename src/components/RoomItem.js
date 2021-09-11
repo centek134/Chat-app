@@ -34,14 +34,18 @@ const RoomItem = ({title, id, addRoomOption }) => {
     };
 
     const addRoom = () => {
-        const roomName = prompt("Please enter channel name:");
-        if(roomName){
+        const roomName = prompt("Please enter channel name (max 10 characters):");
+        if(roomName && roomName.length <=10){
             db.collection("rooms").add({
                 name:roomName
             });
         }
+        else if(roomName.length > 10){
+            alert("To many characters!")
+            return;
+        }
         else{
-            alert("Fill the input with data!")
+            alert("Fill the input with valid data!")
             return;
         }
     }
