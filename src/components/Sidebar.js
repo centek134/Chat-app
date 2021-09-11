@@ -8,36 +8,45 @@ const SidebarCont = styled.div`
   flex: 0.15;
   min-width: 200px;
   background-color: #8a8aff;
-  min-height: 100vh;
   height: 100%;
   color: white;
   display: flex;
   flex-flow: column;
-  & > .userdata {
-    display: flex;
-    justify-content: space-evenly;
-    & > h2{
-      width: 100px;
-    }
-    & > img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-
-  }
   & > h3 {
     text-align: center;
     margin: 10px 0;
     padding: 10px 0;
     border-bottom: 2px solid #ffffff;
   }
+  & > .userdata {
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & > p {
+      font-size: 20px;
+      font-weight: 400;
+    }
+    & > img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    min-width: 100px;
+    & > .userdata {
+      flex-direction: column;
+      & > p {
+        text-align: center;
+      }
+    }
+  }
 `;
 
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
-  const [{user}] = useStateValue()
-
+  const [{ user }] = useStateValue();
 
   useEffect(() => {
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -52,9 +61,9 @@ const Sidebar = () => {
 
   return (
     <SidebarCont>
-      <div className = "userdata">
-        <h2>{user?.displayName}</h2>
-        <img src = {user?.photoURL} alt = "User"/>
+      <div className="userdata">
+        <img src={user?.photoURL} alt="User" />
+        <p>{user?.displayName}</p>
       </div>
 
       <h3>Channels</h3>

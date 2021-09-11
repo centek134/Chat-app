@@ -3,13 +3,15 @@ import styled from "styled-components";
 
 const ChatMessage = styled.div`
   display: flex;
-  align-items: center;
   margin: 5px 0;
-
   & > img {
     height: 50px;
     width: 50px;
     object-fit: contain;
+    @media only screen and (max-width: 350px) {
+    height: 30px;
+    width: 30px;
+  }
   }
   & > .message_info {
     padding-left: 10px;
