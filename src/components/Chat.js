@@ -74,11 +74,10 @@ const Chat = () => {
   useEffect( () => {
     db.collection("rooms").doc(roomId).get().then((doc) => {
       if(doc.exists){
-        console.log("Doc data", doc.data());
         setRoomName(doc.data().name)
       }
       else{
-        return console.log("there is no document");
+        return;
       }
       })
       .catch( err => console.log(err));
@@ -96,10 +95,8 @@ const Chat = () => {
 
     const checkPressedKey = (event) => {
       if(event.key === "Enter" && event.shiftKey){
-        console.log("Shift + enter");
       }
       else if(event.key === "Enter"){
-        console.log("you pressed enter");
         sendMessage();
       }else{
         return;

@@ -57,12 +57,10 @@ const Login = (props) => {
     const signIn = () => {
         auth.signInWithPopup(provider)
         .then((result) => {
-            console.log("USER INFO >>>>", result);
             dispatch({
                 type: actionTypes.SET_USER,
                 user: result.user
             })
-
         }).catch((error) => {
             console.log(error);
         })
