@@ -41,7 +41,7 @@ const InputBody = styled.div`
   background-color: #ededed ;
   &  > textarea {
     width: 70%;
-    height: 100px;
+    height: 70%;
     padding: 0 10px;
     font-size: 20px;
     border-radius: 15px;
@@ -61,6 +61,12 @@ const InputBody = styled.div`
     border: none;
     &:hover{
       background-color: #5779ff;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    & > textarea {
+      width: 50%;
+      height: 70%
     }
   }
 `;
