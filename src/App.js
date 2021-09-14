@@ -14,7 +14,7 @@ const Myapp = styled.div`
 `;
 
 function App() {
-  const [{user}, dispatch] = useStateValue();
+  const [{user}, ] = useStateValue();
 
   return (
     <Myapp>

@@ -98,6 +98,7 @@ const Chat = () => {
       }
       else if(event.key === "Enter"){
         sendMessage();
+        event.target.value = "";
       }else{
         return;
       }

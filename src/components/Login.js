@@ -51,7 +51,7 @@ const LoginWindow = styled.div`
 
 const Login = (props) => {
 
-    const [state, dispatch] = useStateValue()
+    const [, dispatch] = useStateValue()
 
 
     const signIn = () => {
