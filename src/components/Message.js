@@ -28,7 +28,7 @@ const ChatMessage = styled.div`
 
 const Message = ({ message, timestamp, userName, userImage }) => {
   return (
-    <ChatMessage>
+    <ChatMessage className = "message">
       <img src={userImage} alt="" />
       <div className="message_info">
         <h4>
