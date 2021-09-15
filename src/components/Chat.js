@@ -101,14 +101,14 @@ const Chat = () => {
 
     const checkPressedKey = (event) => {
       if(event.key === "Enter" && event.shiftKey){
+        return;
       }
       else if(event.key === "Enter"){
         sendMessage();
-        event.target.value = "";
       }else{
         return;
-      }
-    }
+      };
+    };
 
     const sendMessage = () => {
       const today = new Date();
@@ -122,15 +122,28 @@ const Chat = () => {
         userImage:user.photoURL,
         userName:user.displayName
       });
+      setMyMessage("");
+      clearTextInput();
+      scrollToBottom();
     };
 
+    const clearTextInput = () => {
+      document.getElementById("text").value = "";
+    };
+
+    const scrollToBottom = () => {
+      const chat = document.getElementById("chat-body");
+      const messages = document.querySelectorAll(".message");
+      const cords = messages[messages.length-1].getBoundingClientRect();
+      chat.scrollBy(0,cords.y);
+    };
 
   return (
     <ChatCont>
       <ChatHeader>
         <h3>#{roomName}</h3>
       </ChatHeader>
-      <ChatBody>
+      <ChatBody id = "chat-body">
         {roomMessages.map(({message, timestamp, userName, userImage},index) => (
           <Message
           key={index}
@@ -142,7 +155,7 @@ const Chat = () => {
         ))}
       </ChatBody>
       <InputBody>
-      <textarea onKeyPress = {checkPressedKey} onChange = {saveMessage}/>
+      <textarea id="text" onKeyPress = {checkPressedKey} onChange = {saveMessage}/>
         <button onClick = {sendMessage}>Send</button>
       </InputBody>
     </ChatCont>
