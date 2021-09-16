@@ -11,6 +11,7 @@ const ChatCont = styled.div`
   flex: 0.85;
   height: 100%;
   flex-direction: column;
+  min-height: 300px;
 `;
 
 const ChatHeader = styled.div`
@@ -29,7 +30,6 @@ const ChatBody = styled.div`
   width: 100%;
   padding: 0 25px;
   overflow-y: auto;
-  
 `;
 
 const InputBody = styled.div`
@@ -135,7 +135,10 @@ const Chat = () => {
       const chat = document.getElementById("chat-body");
       const messages = document.querySelectorAll(".message");
       const cords = messages[messages.length-1].getBoundingClientRect();
-      chat.scrollBy(0,cords.y);
+      chat.scrollBy({
+        top: cords.y,
+        behavior: "smooth"
+      });
     };
 
   return (

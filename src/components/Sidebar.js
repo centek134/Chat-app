@@ -7,6 +7,7 @@ import RoomItem from "./RoomItem.js";
 const SidebarCont = styled.div`
   flex: 0.15;
   min-width: 200px;
+  min-height: 300px;
   background-color: #8a8aff;
   height: 100%;
   color: white;
